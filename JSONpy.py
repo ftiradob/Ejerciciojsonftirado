@@ -9,13 +9,29 @@ def listar(doc):
 def contar(doc):
     cuenta=[]
     acce=int(input("Introduzca accesibilidad(0 ó 1): "))
-    print("Hay",len(cuenta),"colegios con accesibilidad %s" %(acce))
+    for i in doc["@graph"]:
+        for b in i["organization"]:
+            if b["accesibility"]==acce:
+                cuenta.append(b["organization-desc"])
+    print("Hay",len(cuenta),"colegios con accesibilidad %d" %(acce))
+
 def mostrarid(doc):
     listaid=[]
     cole=input("Introduzca un colegio público: ")
-    for i in doc["@graph"]
-        listaid.append(i["@id"])
+    for i in doc["@graph"]:
+        if i["title"]==cole:
+            listaid.append(i["id"])
     return listaid
+
+def codigopostal(doc):
+    listacoles=[]
+    cp=input("Introduzca un codigo postal de Madrid: ")
+    for i in doc["@graph"]:
+        for b in i["address"]:
+            if b["postal-code"]==cp:
+                listacoles.append(i["title"])
+    return listacoles
+
 
 with open("colegiospubjson.json") as colegios:
     doc=json.load(colegios)
@@ -31,21 +47,23 @@ while True:
     opcion=int(input("Elija opción: "))
 
     if opcion==1:
+        print("")
         for i in listar(doc):
             print("-",i)
+        print("")
     elif opcion==2:
         contar(doc)
     elif opcion==3:
-        for i in mostrartipo(doc):
-            print(i," ",end="")
+        for i in mostrarid(doc):
+            print("->",i)
         print("")
     elif opcion==4:
-        for i in mostraratkpokemon(doc):
-            print(i," ",end="")
+        for i in codigopostal(doc):
+            print("-",i)
         print("")
     elif opcion==5:
         for i in ejer5(doc):
-            print(i," ",end="")
+            print("-",i)
         print("")
     elif opcion==0:
         print("Adios")
