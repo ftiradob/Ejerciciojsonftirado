@@ -8,12 +8,11 @@ def listar(doc):
 
 def contar(doc):
     cuenta=[]
-    acce=int(input("Introduzca accesibilidad(0 ó 1): "))
+    acce=input("Introduzca accesibilidad(0 ó 1): ")
     for i in doc["@graph"]:
-        for b in i["organization"]:
-            if b["accesibility"]==acce:
-                cuenta.append(b["organization-desc"])
-    print("Hay",len(cuenta),"colegios con accesibilidad %d" %(acce))
+            if i["organization"]["accesibility"]==acce:
+                cuenta.append(i["organization"]["organization-desc"])
+    print("Hay",len(cuenta),"colegios con accesibilidad %s" %(acce))
 
 def mostrarid(doc):
     listaid=[]
