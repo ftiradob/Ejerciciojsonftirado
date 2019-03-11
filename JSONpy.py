@@ -27,9 +27,8 @@ def codigopostal(doc):
     listacoles=[]
     cp=input("Introduzca un codigo postal de Madrid: ")
     for i in doc["@graph"]:
-        for b in i["address"]:
-            if b["postal-code"]==cp:
-                listacoles.append(i["title"])
+        if i["address"]["postal-code"]==cp:
+            listacoles.append(i["title"])
     return listacoles
 
 
