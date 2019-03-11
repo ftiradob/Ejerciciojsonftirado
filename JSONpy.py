@@ -30,6 +30,14 @@ def codigopostal(doc):
             listacoles.append(i["title"])
     return listacoles
 
+def ejer5(doc):
+    listaaccecp=[]
+    accesi=input("Introduzca accesibilidad(0 ó 1): ")
+    codi=input("Introduzca un código postal: ")
+    for i in doc["@graph"]:
+            if i["organization"]["accesibility"]==accesi and i["address"]["postal-code"]<codi:
+                listaaccecp.append(i["title"])
+    return listaaccecp
 
 with open("colegiospubjson.json") as colegios:
     doc=json.load(colegios)
